@@ -18,3 +18,5 @@ Route::get('/', function () {
 });
 
 Route::get('/komoditas', 'CommodityController@index');
+
+Route::get('/admin', 'AdminController@index');
