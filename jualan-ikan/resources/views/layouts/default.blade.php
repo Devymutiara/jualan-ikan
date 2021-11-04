@@ -27,7 +27,8 @@
                     </div>
                 </div>
             </header>
-            @yield('main')
+            @yield('content')
+
         </div>        
     </div>
     @yield('payment-method')

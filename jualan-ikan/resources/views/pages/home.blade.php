@@ -2,7 +2,7 @@
 @section('carousel')
     @include('includes.banner')
 @endsection
-@section('main')
+@section('content')
     @include('includes.main-menu')
 @endsection
 @section('payment-method')

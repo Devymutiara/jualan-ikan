@@ -11,6 +11,10 @@
 |
 */
 
+use App\Http\Controllers\CommodityController;
+
 Route::get('/', function () {
     return view('pages.home');
 });
+
+Route::get('/komoditas', 'CommodityController@index');
