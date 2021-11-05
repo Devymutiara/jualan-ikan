@@ -16,4 +16,9 @@ class Item extends Model
         'harga',
         'keterangan'
     ];
+
+    public function commodity()
+    {
+        return $this->belongsTo(Commodity::class);
+    }
 }

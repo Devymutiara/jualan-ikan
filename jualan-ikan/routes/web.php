@@ -26,6 +26,7 @@ Route::prefix('admin')->group(function () {
         Route::resource('/commodity', 'CommodityController');
         Route::resource('/setting', 'SettingController');
         Route::resource('/social-media', 'SocialMediaController');
+        Route::get('/dashboard', 'DashboardController@index');
     });
 });
 

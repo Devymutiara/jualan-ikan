@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Commodity;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class CommodityController extends Controller
 {
@@ -14,7 +17,8 @@ class CommodityController extends Controller
      */
     public function index()
     {
-        //
+        $commodities = Commodity::latest()->paginate(10);
+        return view('admin.commodities.index', compact('commodities'));
     }
 
     /**
@@ -24,7 +28,7 @@ class CommodityController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.commodities.create');
     }
 
     /**
@@ -35,7 +39,20 @@ class CommodityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $gambar = $request->file('gambar');
+        $gambar->storeAs('public/commodities', $gambar->hashName());
+
+        $commodity = Commodity::create([
+            'gambar' => $gambar->hashName(),
+            'nama'  => $request->nama,
+            'slug'  => Str::slug($request->nama, '-')
+        ]);
+
+        if ($commodity) {
+            return redirect()->route('admin.commodities.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        } else {
+            return redirect()->route('admin.commodities.index')->with(['error' => 'Data Gagal Disimpan!']);
+        }
     }
 
     /**
@@ -55,9 +72,9 @@ class CommodityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Commodity $commodity)
     {
-        //
+        return view('admin.commodities.edit', compact('commodity'));
     }
 
     /**
@@ -67,9 +84,38 @@ class CommodityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Commodity $commodity)
     {
-        //
+
+        if ($request->file('image') == '') {
+            //UPDATE DATA TANPA IMAGE
+            $commodity = Commodity::findOrFail($commodity->id);
+            $commodity->update([
+                'nama'  =>  $request->nama,
+                'slug'  =>  Str::slug($request->nama, '-'),
+            ]);
+        } else {
+            //HAPUS IMAGE LAMA
+            Storage::disk('local')->delete('public/commodities/' . basename($commodity->gambar));
+
+            //UPLOAD IMAGE BARU
+            $gambar = $request->file('gambar');
+            $gambar->storeAs('public/commodities', $gambar->hashName());
+
+            //UPDATE DENGAN IMAGE BARU
+            $commodity = Commodity::findOrFail($commodity->id);
+            $commodity->update([
+                'gambar' => $gambar->hashName(),
+                'nama'   => $request->nama,
+                'slug'   => Str::slug($request->nama, '-')
+            ]);
+        }
+
+        if ($commodity) {
+            return redirect()->route('admin.commodities.index')->with(['success' => 'Data Berhasil Diupdate!']);
+        } else {
+            return redirect()->route('admin.commodities.index')->with(['error' => 'Data Gagal Diupdate!']);
+        }
     }
 
     /**
@@ -80,6 +126,18 @@ class CommodityController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $commodity = Commodity::findOrFail($id);
+        Storage::disk('local')->delete('public/commodities/' . basename($commodity->gambar));
+        $commodity->delete();
+
+        if ($commodity) {
+            return response()->json([
+                'status' => 'success'
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error'
+            ]);
+        }
     }
 }

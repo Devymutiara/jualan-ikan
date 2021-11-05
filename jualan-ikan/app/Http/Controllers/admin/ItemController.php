@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Item;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ItemController extends Controller
 {
@@ -14,7 +17,8 @@ class ItemController extends Controller
      */
     public function index()
     {
-        //
+        $items = Item::latest()->paginate(10);
+        return view('admin.items.index', compact('items'));
     }
 
     /**
@@ -24,7 +28,7 @@ class ItemController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.items.create');
     }
 
     /**
@@ -35,7 +39,25 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $gambar = $request->file('gambar');
+        $gambar->storeAs('public/items', $gambar->hashName());
+
+        $item = Item::create([
+            'gambar'        => $gambar->hashName(),
+            'nama'          => $request->nama,
+            'slug'          => Str::slug($request->name, '-'),
+            'commodity_id'  => $request->commodity_id,
+            'deskripsi'     => $request->deskripsi,
+            'diskon'        => $request->diskon,
+            'harga'         => $request->harga,
+            'keterangan'    => $request->keterangan
+        ]);
+
+        if ($item) {
+            return redirect()->route('admin.items.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        } else {
+            return redirect()->route('admin.items.index')->with(['error' => 'Data Gagal Disimpan!']);
+        }
     }
 
     /**
@@ -55,9 +77,9 @@ class ItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Item $item)
     {
-        //
+        return view('admin.items.edit', compact('item'));
     }
 
     /**
@@ -67,9 +89,47 @@ class ItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Item $item)
     {
-        //
+        if ($request->file('image') == '') {
+            //UPDATE DATA TANPA IMAGE
+            $item = Item::findOrFail($item->id);
+            $item->update([
+                'nama'          =>  $request->nama,
+                'slug'          =>  Str::slug($request->nama, '-'),
+                'commodity_id'  => $request->commodity_id,
+                'deskripsi'     => $request->deskripsi,
+                'diskon'        => $request->diskon,
+                'harga'         => $request->harga,
+                'keterangan'    => $request->keterangan
+            ]);
+        } else {
+            //HAPUS IMAGE LAMA
+            Storage::disk('local')->delete('public/items/' . basename($item->gambar));
+
+            //UPLOAD IMAGE BARU
+            $gambar = $request->file('gambar');
+            $gambar->storeAs('public/items', $gambar->hashName());
+
+            //UPDATE DENGAN IMAGE BARU
+            $item = Item::findOrFail($item->id);
+            $item->update([
+                'gambar'        => $gambar->hashName(),
+                'nama'          => $request->nama,
+                'slug'          => Str::slug($request->nama, '-'),
+                'commodity_id'  => $request->commodity_id,
+                'deskripsi'     => $request->deskripsi,
+                'diskon'        => $request->diskon,
+                'harga'         => $request->harga,
+                'keterangan'    => $request->keterangan
+            ]);
+        }
+
+        if ($item) {
+            return redirect()->route('admin.items.index')->with(['success' => 'Data Berhasil Diupdate!']);
+        } else {
+            return redirect()->route('admin.items.index')->with(['error' => 'Data Gagal Diupdate!']);
+        }
     }
 
     /**
@@ -80,6 +140,18 @@ class ItemController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item = Item::findOrFail($id);
+        Storage::disk('local')->delete('public/items/' . basename($item->gambar));
+        $item->delete();
+
+        if ($item) {
+            return response()->json([
+                'status' => 'success'
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error'
+            ]);
+        }
     }
 }

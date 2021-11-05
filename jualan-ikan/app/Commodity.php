@@ -11,4 +11,9 @@ class Commodity extends Model
         'slug',
         'gambar'
     ];
+
+    public function items()
+    {
+        return $this->hasMany(Item::class);
+    }
 }
