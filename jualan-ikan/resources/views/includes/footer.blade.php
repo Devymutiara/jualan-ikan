@@ -1,4 +1,4 @@
-<div class="body-flex">
+<div class="body-flex border-top">
     <footer>
 
     </footer>
