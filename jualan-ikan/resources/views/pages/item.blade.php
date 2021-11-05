@@ -30,13 +30,6 @@
                         </div>
                         <div class="price-amount">Rp1.000.000</div>
                     </div>
-                    <div class="footer-inner">
-                        <div class="footer-inner-flex">
-                            <div class="footer-inner-flex-center">
-                                <div class="footer-inner-text">10.000 terjual</div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -64,13 +57,6 @@
                         </div>
                         <div class="price-amount">Rp1.000.000</div>
                     </div>
-                    <div class="footer-inner">
-                        <div class="footer-inner-flex">
-                            <div class="footer-inner-flex-center">
-                                <div class="footer-inner-text">10.000 terjual</div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -97,13 +83,6 @@
                             <div class="strikethrough">Rp10.000.000</div>
                         </div>
                         <div class="price-amount">Rp1.000.000</div>
-                    </div>
-                    <div class="footer-inner">
-                        <div class="footer-inner-flex">
-                            <div class="footer-inner-flex-center">
-                                <div class="footer-inner-text">10.000 terjual</div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -111,6 +90,9 @@
         </div>
     </div>
 </main>
+@section('footer')
+    @include('includes.footer')
+@endsection
 @endsection
 @section('owl')
 @include('includes.owl-script')
