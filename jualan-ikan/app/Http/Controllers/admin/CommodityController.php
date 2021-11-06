@@ -17,7 +17,7 @@ class CommodityController extends Controller
      */
     public function index()
     {
-        $commodities = Commodity::latest()->paginate(10);
+        $commodities = Commodity::get();
         return view('admin.commodities.index', compact('commodities'));
     }
 
@@ -49,9 +49,9 @@ class CommodityController extends Controller
         ]);
 
         if ($commodity) {
-            return redirect()->route('admin.commodities.index')->with(['success' => 'Data Berhasil Disimpan!']);
+            return redirect()->route('commodity.index')->with(['success' => 'Data Berhasil Disimpan!']);
         } else {
-            return redirect()->route('admin.commodities.index')->with(['error' => 'Data Gagal Disimpan!']);
+            return redirect()->route('commodity.index')->with(['error' => 'Data Gagal Disimpan!']);
         }
     }
 
@@ -112,9 +112,9 @@ class CommodityController extends Controller
         }
 
         if ($commodity) {
-            return redirect()->route('admin.commodities.index')->with(['success' => 'Data Berhasil Diupdate!']);
+            return redirect()->route('commodity.index')->with(['success' => 'Data Berhasil Diupdate!']);
         } else {
-            return redirect()->route('admin.commodities.index')->with(['error' => 'Data Gagal Diupdate!']);
+            return redirect()->route('commodity.index')->with(['error' => 'Data Gagal Diupdate!']);
         }
     }
 

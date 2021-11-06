@@ -21,12 +21,12 @@ Route::get('/items', 'ItemController@index');
 
 Route::prefix('admin')->group(function () {
     Route::group(['middleware' => 'auth'], function () {
-        Route::resource('/item', 'ItemController');
-        Route::resource('/carousel', 'CarouselController');
-        Route::resource('/commodity', 'CommodityController');
-        Route::resource('/setting', 'SettingController');
-        Route::resource('/social-media', 'SocialMediaController');
-        Route::get('/dashboard', 'DashboardController@index');
+        Route::resource('/item', 'admin\ItemController');
+        Route::resource('/carousel', 'admin\CarouselController');
+        Route::resource('/commodity', 'admin\CommodityController');
+        Route::resource('/setting', 'admin\SettingController');
+        Route::resource('/social-media', 'admin\SocialMediaController');
+        Route::get('/dashboard', 'admin\DashboardController@index');
     });
 });
 

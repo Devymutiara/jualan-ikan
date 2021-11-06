@@ -14,7 +14,7 @@
       </li>
 
       <li class="nav-item menu-open">
-        <a href="{{ url('/admin/commodity') }}" class="nav-link active">
+        <a href="{{ url('/admin/commodity') }}" class="nav-link">
           <i class="nav-icon fas fa-tachometer-alt"></i>
           <p>
             Commodities
@@ -32,7 +32,7 @@
       </li>
 
       <li class="nav-item menu-open">
-        <a href="{{ url('/admin/carousel') }}" class="nav-link">
+        <a href="{{ url('/admin/carousel') }}" class="nav-link active">
           <i class="nav-icon fas fa-tachometer-alt"></i>
           <p>
             Carousel
@@ -71,23 +71,31 @@
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
-                    <form method="POST" action="{{ route('commodity.update', $commodity->id) }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('carousel.update', $carousel->id) }}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="card-body">
                             <div class="form-group">
-                                <label>Nama Komoditas</label>
-                                <input type="text" value="{{ old($commodity->nama) }}" class="form-control" name="nama" placeholder="Masukkan nama komoditas">
+                                <label>Nama Banner</label>
+                                <input type="text" class="form-control" name="nama" placeholder="Masukkan nama gambar">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputFile">File Gambar</label>
                                 <div class="input-group">
                                     <div class="custom-file">
-                                        <input type="file" value="{{ old($commodity->gambar) }}" class="custom-file-input" id="exampleInputFile" name="gambar">
+                                        <input type="file" class="custom-file-input" id="exampleInputFile" name="gambar">
                                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                     </div>
                                 </div>
-                            </div>                    
+                            </div>
+                            <div class="form-group">
+                                <label>Keterangan</label>
+                                <textarea class="form-control" name="keterangan" id="" cols="10" rows="4"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Link</label>
+                                <input type="text" class="form-control" name="link" placeholder="Masukkan link">
+                            </div>
                         </div>
                         <!-- /.card-body -->              
                         <div class="card-footer">
