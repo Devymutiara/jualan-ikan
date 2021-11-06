@@ -18,6 +18,7 @@ class ItemsTableSeeder extends Seeder
             DB::table('items')->insert([
                 [
                     'nama'   => 'Ikan Patin',
+                    'commodity_id' => 2,
                     'slug'   => 'ikan-patin',
 
                 ],

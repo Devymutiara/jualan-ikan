@@ -5,7 +5,7 @@
       <!-- Add icons to the links using the .nav-icon class
            with font-awesome or any other icon font library -->
       <li class="nav-item menu-open">
-        <a href="#" class="nav-link">
+        <a href="{{ url('/admin/dashboard') }}" class="nav-link">
           <i class="nav-icon fas fa-tachometer-alt"></i>
           <p>
             Dashboard
@@ -14,7 +14,7 @@
       </li>
 
       <li class="nav-item menu-open">
-        <a href="#" class="nav-link">
+        <a href="{{ url('/admin/commodity') }}" class="nav-link">
           <i class="nav-icon fas fa-tachometer-alt"></i>
           <p>
             Commodities
@@ -23,7 +23,7 @@
       </li>
 
       <li class="nav-item menu-open">
-        <a href="#" class="nav-link">
+        <a href="{{ url('/admin/item') }}" class="nav-link">
           <i class="nav-icon fas fa-tachometer-alt"></i>
           <p>
             Items
@@ -32,7 +32,7 @@
       </li>
 
       <li class="nav-item menu-open">
-        <a href="#" class="nav-link active">
+        <a href="{{ url('/admin/carousel') }}" class="nav-link active">
           <i class="nav-icon fas fa-tachometer-alt"></i>
           <p>
             Carousel
@@ -41,7 +41,7 @@
       </li>
 
       <li class="nav-item menu-open">
-        <a href="#" class="nav-link">
+        <a href="{{ url('/admin/social-media') }}" class="nav-link">
           <i class="nav-icon fas fa-tachometer-alt"></i>
           <p>
             Social Medias
@@ -50,7 +50,7 @@
       </li>
 
       <li class="nav-item menu-open">
-        <a href="#" class="nav-link">
+        <a href="{{ url('/admin/setting') }}" class="nav-link">
           <i class="nav-icon fas fa-tachometer-alt"></i>
           <p>
             Settings

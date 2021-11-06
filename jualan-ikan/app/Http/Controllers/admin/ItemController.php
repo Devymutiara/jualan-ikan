@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Commodity;
 use App\Http\Controllers\Controller;
 use App\Item;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = Item::latest()->paginate(10);
+        $items = Item::with('commodity')->get();
         return view('admin.items.index', compact('items'));
     }
 
@@ -28,7 +29,8 @@ class ItemController extends Controller
      */
     public function create()
     {
-        return view('admin.items.create');
+        $commodities = Commodity::latest()->get();
+        return view('admin.items.create', compact('commodities'));
     }
 
     /**
@@ -54,9 +56,9 @@ class ItemController extends Controller
         ]);
 
         if ($item) {
-            return redirect()->route('admin.items.index')->with(['success' => 'Data Berhasil Disimpan!']);
+            return redirect()->route('item.index')->with(['success' => 'Data Berhasil Disimpan!']);
         } else {
-            return redirect()->route('admin.items.index')->with(['error' => 'Data Gagal Disimpan!']);
+            return redirect()->route('item.index')->with(['error' => 'Data Gagal Disimpan!']);
         }
     }
 
@@ -79,7 +81,8 @@ class ItemController extends Controller
      */
     public function edit(Item $item)
     {
-        return view('admin.items.edit', compact('item'));
+        $commodities = Commodity::latest()->get();
+        return view('admin.items.edit', compact('item', 'commodities'));
     }
 
     /**
@@ -126,9 +129,9 @@ class ItemController extends Controller
         }
 
         if ($item) {
-            return redirect()->route('admin.items.index')->with(['success' => 'Data Berhasil Diupdate!']);
+            return redirect()->route('item.index')->with(['success' => 'Data Berhasil Diupdate!']);
         } else {
-            return redirect()->route('admin.items.index')->with(['error' => 'Data Gagal Diupdate!']);
+            return redirect()->route('item.index')->with(['error' => 'Data Gagal Diupdate!']);
         }
     }
 

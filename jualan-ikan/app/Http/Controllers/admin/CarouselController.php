@@ -14,6 +14,7 @@ class CarouselController extends Controller
      */
     public function index()
     {
+        return view('admin.carousel.index');
     }
 
     /**
@@ -23,7 +24,7 @@ class CarouselController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.carousel.create');
     }
 
     /**

@@ -14,7 +14,7 @@ class SocialMediaController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.social_media.index');
     }
 
     /**

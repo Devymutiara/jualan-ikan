@@ -5,7 +5,7 @@
       <!-- Add icons to the links using the .nav-icon class
            with font-awesome or any other icon font library -->
       <li class="nav-item menu-open">
-        <a href="#" class="nav-link">
+        <a href="{{ url('/admin/dashboard') }}" class="nav-link">
           <i class="nav-icon fas fa-tachometer-alt"></i>
           <p>
             Dashboard
@@ -14,7 +14,7 @@
       </li>
 
       <li class="nav-item menu-open">
-        <a href="#" class="nav-link active">
+        <a href="{{ url('/admin/commodity') }}" class="nav-link active">
           <i class="nav-icon fas fa-tachometer-alt"></i>
           <p>
             Commodities
@@ -23,7 +23,7 @@
       </li>
 
       <li class="nav-item menu-open">
-        <a href="#" class="nav-link">
+        <a href="{{ url('/admin/item') }}" class="nav-link">
           <i class="nav-icon fas fa-tachometer-alt"></i>
           <p>
             Items
@@ -32,7 +32,7 @@
       </li>
 
       <li class="nav-item menu-open">
-        <a href="#" class="nav-link">
+        <a href="{{ url('/admin/carousel') }}" class="nav-link">
           <i class="nav-icon fas fa-tachometer-alt"></i>
           <p>
             Carousel
@@ -41,7 +41,7 @@
       </li>
 
       <li class="nav-item menu-open">
-        <a href="#" class="nav-link">
+        <a href="{{ url('/admin/social-media') }}" class="nav-link">
           <i class="nav-icon fas fa-tachometer-alt"></i>
           <p>
             Social Medias
@@ -50,7 +50,7 @@
       </li>
 
       <li class="nav-item menu-open">
-        <a href="#" class="nav-link">
+        <a href="{{ url('/admin/setting') }}" class="nav-link">
           <i class="nav-icon fas fa-tachometer-alt"></i>
           <p>
             Settings
@@ -59,5 +59,66 @@
       </li>
     </ul>
   </nav>
+@endsection
+@section('box')
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">DataTable with default features</h3>
+  </div>
+  <!-- /.card-header -->
+  <div class="card-body">
+    <table id="example1" class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th width="5%">No</th>
+        <th>Nama</th>
+        <th>Gambar</th>
+        <th>Aksi</th>
+      </tr>
+      </thead>
+      <tbody>
+        @foreach ($commodities as $commodity)
+        <tr>
+          <td>{{ $loop->iteration }}</td>
+          <td>{{ $commodity->nama }}</td>
+          <td>{{ $commodity->gambar }}</td>
+          <td>
+            <a href="{{ route('commodity.edit', $commodity->id) }}" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
+            <button href="" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+          </td>
+        </tr>            
+        @endforeach
+      </tbody>
+    </table>
+  </div>
+  <!-- /.card-body -->
+</div>
+@endsection
+@section('datatable-script')
+<script src={{ asset("adminlte/plugins/datatables/jquery.dataTables.min.js") }}></script>
+<script src={{ asset("adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js") }}></script>
+<script src={{ asset("adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js") }}></script>
+<script src={{ asset("adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js") }}></script>
+<script src={{ asset("adminlte/plugins/datatables-buttons/js/dataTables.buttons.min.js") }}></script>
+<script src={{ asset("adminlte/plugins/datatables-buttons/js/buttons.bootstrap4.min.js") }}></script>
+<script src={{ asset("adminlte/plugins/datatables-buttons/js/buttons.html5.min.js") }}></script>
+<script src={{ asset("adminlte/plugins/datatables-buttons/js/buttons.print.min.js") }}></script>
+<script src={{ asset("adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js") }}></script>
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
 @endsection
 
