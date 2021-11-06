@@ -11,6 +11,26 @@
 |
 */
 
+use App\Http\Controllers\CommodityController;
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('pages.home');
 });
+
+Route::get('/items', 'ItemController@index');
+
+Route::prefix('admin')->group(function () {
+    Route::group(['middleware' => 'auth'], function () {
+        Route::get('/', 'admin\DashboardController@index');
+        Route::resource('/item', 'admin\ItemController');
+        Route::resource('/carousel', 'admin\CarouselController');
+        Route::resource('/commodity', 'admin\CommodityController');
+        Route::resource('/setting', 'admin\SettingController');
+        Route::resource('/social-media', 'admin\SocialMediaController');
+        Route::get('/dashboard', 'admin\DashboardController@index');
+    });
+});
+
+Auth::routes(['register' => false]);
+
+Route::get('/home', 'HomeController@index')->name('home');
