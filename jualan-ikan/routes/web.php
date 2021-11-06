@@ -17,4 +17,19 @@ Route::get('/', function () {
     return view('pages.home');
 });
 
-Route::get('/komoditas', 'CommodityController@index');
+Route::get('/items', 'ItemController@index');
+
+Route::prefix('admin')->group(function () {
+    Route::group(['middleware' => 'auth'], function () {
+        Route::resource('/item', 'ItemController');
+        Route::resource('/carousel', 'CarouselController');
+        Route::resource('/commodity', 'CommodityController');
+        Route::resource('/setting', 'SettingController');
+        Route::resource('/social-media', 'SocialMediaController');
+        Route::get('/dashboard', 'DashboardController@index');
+    });
+});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
