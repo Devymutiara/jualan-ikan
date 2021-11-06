@@ -2,7 +2,7 @@
     <nav>
         <div class="nav-flex">
 
-            <a href="">
+            <a href="{{ url('/') }}">
                 <div class="nav-items">
                     <div class="nav-img">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
@@ -14,7 +14,7 @@
                 </div>
             </a>
 
-            <a href="">
+            <a href="{{ url('items') }}">
                 <div class="nav-items">
                     <div class="nav-img">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-justify" viewBox="0 0 16 16">
@@ -25,7 +25,7 @@
                 </div>
             </a>
 
-            <a href="">
+            <a href="{{ url('tentang') }}">
                 <div class="nav-items">
                     <div class="nav-img">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-view-list" viewBox="0 0 16 16">
@@ -36,7 +36,7 @@
                 </div>
             </a>
 
-            <a href="">
+            <a href="{{ url('kontak') }}">
                 <div class="nav-items">
                     <div class="nav-img">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone" viewBox="0 0 16 16">
